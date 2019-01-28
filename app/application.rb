@@ -1,16 +1,16 @@
 class Application
 
-  @@songs = [Song.new("Sorry", "Justin Bieber"),
-            Song.new("Hello","Adele")]
-
-  def call(env)
+ def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
-
-    @@songs.each do |song|
-      resp.write "#{song.title}\n"
+ 
+    if req.path=="/items"
+      resp.write "You requested the songs"
+    else
+      resp.write "Route not found"
+      resp.status = 404
     end
-
+ 
     resp.finish
   end
 end
